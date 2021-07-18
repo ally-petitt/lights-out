@@ -9,7 +9,7 @@ function Tabs() {
     }
 
     return (
-        <div className="mt-5">
+        <div id="tabs" className="h-100" style={{width: "80%", maxWidth: "650px"}}>
             <ul class="nav nav-tabs">
                 <li class="nav-item">
                     <p class={`nav-link ${boardSize == "5x5" ? "active" : null}`} 

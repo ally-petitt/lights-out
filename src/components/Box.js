@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 function Box() {
+    const [isLit, setIsLit] = useState(true)
+
     return (
         <div className="text-danger">
             BOX

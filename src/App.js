@@ -7,7 +7,10 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <Tabs />
+      <div className="board-container d-flex justify-content-center"
+       style={{minHeight: "80vh", width: "100vw"}}>
+        <Tabs />
+      </div>
     </div>
   );
 }

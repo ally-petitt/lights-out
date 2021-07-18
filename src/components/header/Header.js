@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 function Header() {
 
     return (
-        <div>
+        <div style={{height: "20vh"}}>
             <h1>LIGHTS OUT</h1>
         </div>
     )
