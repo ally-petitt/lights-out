@@ -5,7 +5,7 @@ import Tabs from "./components/Tabs"
 
 function App() {
   return (
-    <div className="App">
+    <div className="App bg-dark">
       <Header />
       <div className="board-container d-flex justify-content-center"
        style={{minHeight: "80vh", width: "100vw"}}>

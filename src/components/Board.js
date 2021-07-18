@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import Box from "./Box"
 import "./board.css"
-import { getElementError } from '@testing-library/react'
 
 function Board({ size }) {
     // create empty board list to map through when rendering Boxes
@@ -22,7 +21,7 @@ function Board({ size }) {
                     return(
                         <tr className="w-100">
                             {row.map((box) => (
-                                <td style={{width: wdth}}><Box /></td>
+                                <td style={{width: wdth, height: wdth}}><Box /></td>
                             ))}
                         </tr>
                     )
