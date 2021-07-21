@@ -7,7 +7,7 @@ function Header() {
 
     return (
         <div style={{height: "20vh"}} className="d-flex align-items-end justify-content-center">
-            <h1><span class="cursive">Lights Out</span></h1>
+            <h1><span className="cursive">Lights Out</span></h1>
         </div>
     )
 }

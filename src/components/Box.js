@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
 
-function Box() {
-    const [isLit, setIsLit] = useState(true)
-
+function Box({ isLit }) {
     return (
-        <div className="text-danger bg-light" style={{width: "100%", paddingTop: "100%", position: "relative"}}>
+        <div className={isLit ? "bg-light" : "bg-secondary"} style={{width: "100%", paddingTop: "100%", position: "relative"}}>
         </div>
     )
 }
