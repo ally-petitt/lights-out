@@ -45,9 +45,19 @@ function Board({ size }) {
     }
 
     const addCross = (center) => {
-
+        let { x, y } = center
         // find center and boxes around it
-        let targetBoxes = [board[center.x][center.y]]
+        let targetBoxes = [board[x][y]]
+
+        if (board[x].length -1 > x) {
+            targetBoxes.push(board[x+1][y])
+        } if (board[y].length -1 > y) {
+            targetBoxes.push(board[x][y+1])
+        } if (x != 0) {
+            targetBoxes.push(board[x-1][y])
+        } if (y != 0) {
+            targetBoxes.push(board[x][y-1])
+        }
 
         for (const box of targetBoxes) {
             box.isLit = !box.isLit
