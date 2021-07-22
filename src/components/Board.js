@@ -1,21 +1,25 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Box from "./Box"
 import "./board.css"
-import { useState } from 'react'
 
 function Board({ size }) {
     const [board, setBoard] = useState()
+    // coordinates of box that was just clicked once a move is made
+    const [location, setLocation] = useState()
 
-    // create empty board list to map through when rendering Boxes
-
-    useEffect(async() => {
+    useEffect(() => {
         setUp();
     }, [])
 
+    useEffect(() => {
+        if (location) {
+            addCross(location)
+            checkWin();
+        }
+    }, [location])
+
     const setUp = () => {
         size = size.split("x")
-        // const filledList = new Array(parseInt(size[0])).fill({isLit: true})
-        // const tempBoard = new Array(parseInt(size[1])).fill(filledList)
 
         // find random center and use it set up initial board
         let x = Math.floor(Math.random() * size[0])
@@ -36,22 +40,26 @@ function Board({ size }) {
             }
             tempBoard.push(row)
         }
-        console.log(tempBoard)
 
         setBoard(tempBoard);
     }
 
     const addCross = (center) => {
-        console.log(center)
+
         // find center and boxes around it
-        let targetBoxes = [board[2][4]]
-        console.log(targetBoxes[0])
+        let targetBoxes = [board[center.x][center.y]]
 
         for (const box of targetBoxes) {
             box.isLit = !box.isLit
         }
 
         setBoard(board)
+        setLocation(null)
+        
+    }
+
+    const checkWin = () => {
+
     }
 
     return (
@@ -65,7 +73,11 @@ function Board({ size }) {
                     return(
                         <tr className="w-100">
                             {row.map((box, j) => (
-                                <td id={`${i}-${j}`} style={{width: wdth, height: wdth}}><Box isLit={box.isLit} /></td>
+                                <td id={`${i}-${j}`} style={{width: wdth, height: wdth}}>
+                                    <Box isLit={box.isLit}
+                                        location={{x: i, y: j}}
+                                        setLocation={setLocation} />
+                                </td>
                             ))}
                         </tr>
                     )
