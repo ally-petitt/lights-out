@@ -14,29 +14,24 @@ function Board({ size }) {
     useEffect(() => {
         if (location) {
             addCross(location)
-            checkWin();
+            if (checkWin()) {
+                endGame()
+            }
         }
     }, [location])
 
     const setUp = () => {
         size = size.split("x")
 
-        // find random center and use it set up initial board
-        let x = Math.floor(Math.random() * size[0])
-        let y = Math.floor(Math.random() * size[1])
-
-        // fill up board
+        // fill up board randomly
         let tempBoard = []
         for (let i=0; i<size[0]; i++) {
             let row = []
             for (let j=0; j<size[1]; j++) {
-                if( (i == x && j == y) ||
-                    (i >= x-1 && i <= x+1 && j == y) || 
-                    (j >= y-1 && j <= y+1 && i == x)) {
-                    row.push({isLit: false})
-                } else {
-                    row.push({isLit: true})
-                }
+                // TODO: change back
+                // let randomBoolean = Math.random() < 0.5;
+                let randomBoolean = false;
+                row.push({ isLit: randomBoolean })
             }
             tempBoard.push(row)
         }
@@ -47,20 +42,16 @@ function Board({ size }) {
     const addCross = (center) => {
         let { x, y } = center
         // find center and boxes around it
-        let targetBoxes = [board[x][y]]
+        board[x][y].isLit = !board[x][y].isLit
 
         if (board[x].length -1 > x) {
-            targetBoxes.push(board[x+1][y])
+            board[x+1][y].isLit = !board[x+1][y].isLit;
         } if (board[y].length -1 > y) {
-            targetBoxes.push(board[x][y+1])
+            board[x][y+1].isLit = !board[x][y+1].isLit;
         } if (x != 0) {
-            targetBoxes.push(board[x-1][y])
+            board[x-1][y].isLit = !board[x-1][y].isLit;
         } if (y != 0) {
-            targetBoxes.push(board[x][y-1])
-        }
-
-        for (const box of targetBoxes) {
-            box.isLit = !box.isLit
+            board[x][y-1].isLit = !board[x][y-1].isLit;
         }
 
         setBoard(board)
@@ -69,7 +60,20 @@ function Board({ size }) {
     }
 
     const checkWin = () => {
+        const res = board.map(row => {
+            if (row.some(box => box.isLit)) {
+                return false
+            }
+        })
 
+        if (res.includes(false)) {
+            return false
+        }
+        return true
+    }
+
+    const endGame = () => {
+        console.log("you won!")
     }
 
     return (
@@ -83,7 +87,7 @@ function Board({ size }) {
                     return(
                         <tr className="w-100">
                             {row.map((box, j) => (
-                                <td id={`${i}-${j}`} style={{width: wdth, height: wdth}}>
+                                <td style={{width: wdth, height: wdth}}>
                                     <Box isLit={box.isLit}
                                         location={{x: i, y: j}}
                                         setLocation={setLocation} />
