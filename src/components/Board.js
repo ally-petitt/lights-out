@@ -6,6 +6,7 @@ function Board({ size }) {
     const [board, setBoard] = useState()
     // coordinates of box that was just clicked once a move is made
     const [location, setLocation] = useState()
+    const [hasWon, setHasWon] = useState(false)
 
     useEffect(() => {
         setUp();
@@ -73,7 +74,38 @@ function Board({ size }) {
     }
 
     const endGame = () => {
-        console.log("you won!")
+        const title = document.getElementById("title")
+        
+        // remove glowing animation from title
+        title.classList.remove("glow")
+        flickerTitle();
+
+        // reset glow on title
+    }
+
+    const flickerTitle = () => {
+        const title = document.getElementById("title")
+        const glowTextShadow = "0 0 5px #fff, 0 0 10px #fff, 0 0 15px #0073e6, 0 0 20px #0073e6, 0 0 25px #0073e6, 0 0 30px #0073e6, 0 0 35px #0073e6"
+
+         // make lights on title flicker
+        setTimeout(() => title.style.textShadow = glowTextShadow, 600)
+        setTimeout(() => title.style.textShadow = "none", 800)
+        setTimeout(() => title.style.textShadow = glowTextShadow, 1400)
+
+        // flicker for 1.5 seconds 
+        setTimeout(() => {
+            const flickerTitle = setInterval(() => {
+                title.style.textShadow = glowTextShadow
+                setTimeout(() => {title.style.textShadow = "none"}, 200)
+            }, 200)
+
+            setTimeout(() => {
+                clearInterval(flickerTitle)
+                // fade text into background
+                title.classList.add("fade-dark")
+                setHasWon(true)
+            }, 1500)
+        }, 1800)
     }
 
     return (
@@ -98,6 +130,25 @@ function Board({ size }) {
                 }) : null
                 }
             </table>
+            {hasWon ? (
+                <>
+                <div className="show-win text-light">
+                    <p className="slide-up glow-up">YOU</p>
+                    <p className="flip-up glow-up"zzz>WON</p>
+                </div>
+                <div id="confettis">
+                    <div class="confetti"></div>
+                    <div class="confetti"></div>
+                    <div class="confetti"></div>
+                    <div class="confetti"></div>
+                    <div class="confetti"></div>
+                    <div class="confetti"></div>
+                    <div class="confetti"></div>
+                    <div class="confetti"></div>
+                    <div class="confetti"></div>
+                </div>
+                </>
+            ) : null}
         </div>
     )
 }

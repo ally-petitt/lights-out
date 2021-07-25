@@ -12,7 +12,14 @@ h1 {
   font-size: 80px;
   text-align: center;
   color: #fff;
+}
+
+.glow {
   animation: glow 1s ease-in-out infinite alternate;
+}
+
+.fade-dark {
+  animation: fadeDark 1s forwards;
 }
 
 @keyframes glow {
@@ -21,5 +28,14 @@ h1 {
   }
   to {
     text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #0073e6, 0 0 40px #0073e6, 0 0 50px #0073e6, 0 0 60px #0073e6, 0 0 70px #0073e6;
+  }
+}
+
+@keyframes fadeDark {
+  from {
+    color: #fff
+  }
+  to {
+    color: #212529
   }
 }
