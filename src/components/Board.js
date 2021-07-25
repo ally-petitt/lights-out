@@ -29,9 +29,7 @@ function Board({ size }) {
         for (let i=0; i<size[0]; i++) {
             let row = []
             for (let j=0; j<size[1]; j++) {
-                // TODO: change back
-                // let randomBoolean = Math.random() < 0.5;
-                let randomBoolean = false;
+                let randomBoolean = Math.random() < 0.5;
                 row.push({ isLit: randomBoolean })
             }
             tempBoard.push(row)
@@ -78,12 +76,10 @@ function Board({ size }) {
         
         // remove glowing animation from title
         title.classList.remove("glow")
-        flickerTitle();
-
-        // reset glow on title
+        playEndGameAnimations();
     }
 
-    const flickerTitle = () => {
+    const playEndGameAnimations = () => {
         const title = document.getElementById("title")
         const glowTextShadow = "0 0 5px #fff, 0 0 10px #fff, 0 0 15px #0073e6, 0 0 20px #0073e6, 0 0 25px #0073e6, 0 0 30px #0073e6, 0 0 35px #0073e6"
 
